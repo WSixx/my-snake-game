@@ -3,6 +3,10 @@
 
 #include <stdlib.h>
 
+// Lembrar
+// next aponta para trás (da cabeça rumo à cauda)
+// prev aponta para frente (da cauda rumo à cabeça)
+
 int main(void) {
     Node* head = nullptr;
     Node* tail = nullptr;
