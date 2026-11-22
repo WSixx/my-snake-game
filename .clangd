@@ -1,0 +1,11 @@
+If:
+  PathMatch: .*\.h$
+CompileFlags:
+  Add: [--target=x86_64-w64-mingw32, -xc, -std=c23, -Wall, -Wextra]
+
+---
+
+If:
+  PathMatch: .*\.c$
+CompileFlags:
+  Add: [--target=x86_64-w64-mingw32, -std=c23, -Wall, -Wextra]
