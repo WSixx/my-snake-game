@@ -11,5 +11,6 @@ typedef struct node {
 } Node;
 
 [[nodiscard]] bool push_head(Node** head, Node** tail, int x, int y, char body);
+void pop_tail(Node** head, Node** tail);
 
 #endif

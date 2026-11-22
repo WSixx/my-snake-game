@@ -33,3 +33,17 @@ int main(void) {
 
     return true;
 }
+
+void pop_tail(Node** head, Node** tail) {
+    if (*tail == nullptr) {  // lista vazia
+        return;
+    }
+    Node* oldTail = *tail;
+    *tail = oldTail->prev;
+    if (*tail == nullptr) {
+        *head = nullptr;
+    } else {
+        (*tail)->next = nullptr;
+    }
+    free(oldTail);
+}
