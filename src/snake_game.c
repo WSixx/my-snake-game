@@ -1,6 +1,7 @@
 
 #include "snake_game.h"
 
+#include <stddef.h>
 #include <stdlib.h>
 
 // Lembrar
@@ -12,6 +13,23 @@ int main(void) {
     Node* tail = nullptr;
 
     return 0;
+}
+
+[[nodiscard]] bool board_init(Board* board, int width, int height) {
+    if (width <= 0 || height <= 0 || board == nullptr) {
+        return false;
+    }
+
+    size_t newSize = (size_t)width * (size_t)height;
+    char* new_cells = calloc(newSize, sizeof(*new_cells));
+
+    if (new_cells == nullptr) {
+        return false;
+    }
+    board->width = width;
+    board->height = height;
+    board->cells = new_cells;
+    return true;
 }
 
 [[nodiscard]] bool push_head(Node** head, Node** tail, int x, int y, char body) {

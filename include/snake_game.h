@@ -10,7 +10,14 @@ typedef struct node {
     struct node* next;
 } Node;
 
+typedef struct Board {
+    int width;
+    int height;
+    char* cells;
+} Board;
+
 [[nodiscard]] bool push_head(Node** head, Node** tail, int x, int y, char body);
 void pop_tail(Node** head, Node** tail);
+[[nodiscard]] bool board_init(Board* board, int width, int height);
 
 #endif
