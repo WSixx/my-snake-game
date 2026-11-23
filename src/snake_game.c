@@ -21,6 +21,7 @@ int main(void) {
     }
 
     size_t newSize = (size_t)width * (size_t)height;
+    // alocando e ja zerando
     char* new_cells = calloc(newSize, sizeof(*new_cells));
 
     if (new_cells == nullptr) {
