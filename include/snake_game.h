@@ -21,5 +21,6 @@ void pop_tail(Node** head, Node** tail);
 
 [[nodiscard]] bool board_init(Board* board, int width, int height);
 void board_set(Board* board, int x, int y, char c);
+void board_clear(Board* board);
 
 #endif

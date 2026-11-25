@@ -43,6 +43,21 @@ void board_set(Board* board, int x, int y, char c) {
     *(board->cells + (y * board->width) + x) = c;
 }
 
+void board_clear(Board* board) {
+    if (board == nullptr || board->cells == nullptr) {
+        return;
+    }
+    for (int y = 0; y <= board->height - 1; y++) {
+        for (int x = 0; x <= board->width - 1; x++) {
+            if (y == board->height - 1 || x == board->width - 1 || y == 0 || x == 0) {
+                board_set(board, x, y, '#');
+                continue;
+            }
+            board_set(board, x, y, ' ');
+        }
+    }
+}
+
 [[nodiscard]] bool push_head(Node** head, Node** tail, int x, int y, char body) {
     Node* nodePtr;
     nodePtr = malloc(sizeof(*nodePtr));
