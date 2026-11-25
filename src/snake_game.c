@@ -34,17 +34,28 @@ int main(void) {
 }
 
 void board_set(Board* board, int x, int y, char c) {
-    if (board == nullptr || board->cells == nullptr) {
+    if (isBoardNull(board)) {
         return;
     }
-    if (x < 0 || y < 0 || x > board->width - 1 || y > board->height - 1) {
+    if (!isBoardCoordinatesValid(board, x, y)) {
         return;
     }
     *(board->cells + (y * board->width) + x) = c;
 }
 
+[[nodiscard]] char board_get(const Board* board, int x, int y) {
+    if (isBoardNull(board)) {
+        return '\0';
+    }
+    if (!isBoardCoordinatesValid(board, x, y)) {
+        return '\0';
+    }
+
+    return *(board->cells + (y * board->width) + x);
+}
+
 void board_clear(Board* board) {
-    if (board == nullptr || board->cells == nullptr) {
+    if (isBoardNull(board)) {
         return;
     }
     for (int y = 0; y <= board->height - 1; y++) {
@@ -56,6 +67,15 @@ void board_clear(Board* board) {
             board_set(board, x, y, ' ');
         }
     }
+}
+
+void board_free(Board* board) {
+    if (board == nullptr) {
+        return;
+    }
+    // board está na stack...
+    free(board->cells);
+    board->cells = nullptr;
 }
 
 [[nodiscard]] bool push_head(Node** head, Node** tail, int x, int y, char body) {
@@ -94,4 +114,18 @@ void pop_tail(Node** head, Node** tail) {
         (*tail)->next = nullptr;
     }
     free(oldTail);
+}
+
+[[nodiscard]] bool isBoardCoordinatesValid(const Board* board, int x, int y) {
+    if (x < 0 || y < 0 || x > board->width - 1 || y > board->height - 1) {
+        return true;
+    }
+    return false;
+}
+
+[[nodiscard]] bool isBoardNull(const Board* board) {
+    if (board == nullptr || board->cells == nullptr) {
+        return true;
+    }
+    return false;
 }
