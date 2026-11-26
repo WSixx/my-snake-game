@@ -3,6 +3,8 @@
 
 #include <stddef.h>
 #include <stdlib.h>
+#include <termios.h>
+#include <unistd.h>
 
 // Lembrar
 // next aponta para trás (da cabeça rumo à cauda)
@@ -115,6 +117,10 @@ void pop_tail(Node** head, Node** tail) {
     }
     free(oldTail);
 }
+
+[[nodiscard]] bool enable_raw_mode(struct termios* orig_termios) { 
+    return false;
+ }
 
 [[nodiscard]] bool isBoardCoordinatesValid(const Board* board, int x, int y) {
     if (x < 0 || y < 0 || x > board->width - 1 || y > board->height - 1) {
