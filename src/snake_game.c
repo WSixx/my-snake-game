@@ -118,9 +118,30 @@ void pop_tail(Node** head, Node** tail) {
     free(oldTail);
 }
 
-[[nodiscard]] bool enable_raw_mode(struct termios* orig_termios) { 
-    return false;
- }
+[[nodiscard]] bool enable_raw_mode(struct termios* orig_termios) {
+    if (orig_termios == nullptr) {
+        return false;
+    }
+    if (tcgetattr(STDIN_FILENO, orig_termios) == -1) {
+        return false;
+    }
+
+    // copia na stack
+    struct termios raw = *orig_termios;
+    // zerandp os bits do echo e icanon
+    raw.c_lflag &= ~(ECHO | ICANON);  // ICANON -> enter
+
+    // controlam quando read() retorna
+    // leitura não bloqueante (polling);
+    raw.c_cc[VMIN] = 0;   // numero minimo de bytes de espera até retornar 0
+    raw.c_cc[VTIME] = 0;  // tempo de espera ate retornar 0
+
+    if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw) == -1) {
+        return false;
+    }
+
+    return true;
+}
 
 [[nodiscard]] bool isBoardCoordinatesValid(const Board* board, int x, int y) {
     if (x < 0 || y < 0 || x > board->width - 1 || y > board->height - 1) {
