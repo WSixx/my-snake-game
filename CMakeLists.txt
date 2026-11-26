@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.5.1)
+cmake_minimum_required(VERSION 4.3.0)
 project(my-snake-game C)
 
 set(CMAKE_C_STANDARD 23)
